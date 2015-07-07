@@ -25,11 +25,15 @@ module Bittrex
           req.params[:nonce]    = nonce
           req.headers[:apisign] = signature(url, nonce)
         end
+
+        puts req
       end
 
       if JSON.parse(response.body)['result'].class.is_a? Array
+        puts response.body
         (JSON.parse(response.body)['result'])[0]
       else
+        puts response.body
         JSON.parse(response.body)['result']
       end
     end
