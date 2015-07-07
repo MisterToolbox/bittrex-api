@@ -9,7 +9,6 @@ module Bittrex
   autoload :Order,          'bittrex/order'
   autoload :Quote,          'bittrex/quote'
   autoload :Summary,        'bittrex/summary'
-  autoload :Summaries,      'bittrex/summaries'
   autoload :Wallet,         'bittrex/wallet'
   autoload :Withdrawl,      'bittrex/withdrawl'
 
