@@ -6,11 +6,11 @@ require 'bittrex/version'
 Gem::Specification.new do |spec|
   spec.name          = "bittrex"
   spec.version       = Bittrex::VERSION
-  spec.authors       = ["Matthew Werner"]
-  spec.email         = ["m@mjw.io"]
+  spec.authors       = ["Aaron Binford"]
+  spec.email         = ["aaronbinford@gmail.com"]
   spec.summary       = %q{API Client for the Bittrex API}
   spec.description   = %q{API Client for the Bittrex API}
-  spec.homepage      = "https://github.com/mwerner/bittrex"
+  spec.homepage      = "https://github.com/mistertoolbox/bittrex"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'faraday', '~> 0.9.0'
+  spec.add_dependency 'json'
 
   spec.add_development_dependency "bundler", "~> 1.6"
   spec.add_development_dependency "rake"

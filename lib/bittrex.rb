@@ -1,16 +1,17 @@
 require "bittrex/version"
 
 module Bittrex
-  autoload :Market,        'bittrex/market'
-  autoload :Client,        'bittrex/client'
-  autoload :Configuration, 'bittrex/configuration'
-  autoload :Currency,      'bittrex/currency'
-  autoload :Deposit,       'bittrex/deposit'
-  autoload :Order,         'bittrex/order'
-  autoload :Quote,         'bittrex/quote'
-  autoload :Summary,       'bittrex/summary'
-  autoload :Wallet,        'bittrex/wallet'
-  autoload :Withdrawl,     'bittrex/withdrawl'
+  autoload :Market,         'bittrex/market'
+  autoload :Client,         'bittrex/client'
+  autoload :Configuration,  'bittrex/configuration'
+  autoload :Currency,       'bittrex/currency'
+  autoload :Deposit,        'bittrex/deposit'
+  autoload :Order,          'bittrex/order'
+  autoload :Quote,          'bittrex/quote'
+  autoload :Summary,        'bittrex/summary'
+  autoload :Summaries,      'bittrex/summaries'
+  autoload :Wallet,         'bittrex/wallet'
+  autoload :Withdrawl,      'bittrex/withdrawl'
 
   def self.client
     @client ||= Client.new(configuration.auth)
