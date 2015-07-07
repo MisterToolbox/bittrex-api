@@ -28,10 +28,8 @@ module Bittrex
       end
 
       if JSON.parse(response.body)['result'].class.is_a? Array
-        p JSON.parse(response.body)['result'].class
         (JSON.parse(response.body)['result'])[0]
       else
-        p JSON.parse(response.body)['result'].class
         JSON.parse(response.body)['result']
       end
     end
