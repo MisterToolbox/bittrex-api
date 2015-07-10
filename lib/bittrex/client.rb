@@ -1,7 +1,6 @@
 require 'faraday'
 require 'base64'
 require 'json'
-require 'faraday/detailed_logger'
 require_relative '../faraday_params_encoder'
 
 module Bittrex
@@ -54,7 +53,6 @@ module Bittrex
     def connection
       @connection ||= Faraday.new(:url => HOST, request: {params_encoder: Faraday::BittrexFlatParamsEncoder}) do |faraday|
         faraday.request   :url_encoded
-        faraday.response  :detailed_logger
         faraday.adapter   Faraday.default_adapter
       end
     end
