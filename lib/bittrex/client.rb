@@ -2,7 +2,7 @@ require 'faraday'
 require 'base64'
 require 'json'
 require 'faraday/detailed_logger'
-require_relative 'lib/faraday_params_encoder'
+require_relative '../faraday_params_encoder'
 
 module Bittrex
   class Client
@@ -25,7 +25,8 @@ module Bittrex
         end
 
         req.params.merge!(params)
-        req.url("#{HOST}/#{path}#{params_to_url(req.params)}")
+        url = "#{HOST}/#{path}#{params_to_url(req.params)}"
+        req.url(url)
 
         req.headers[:apisign] = signature(url, nonce) if key
 
@@ -51,7 +52,7 @@ module Bittrex
     end
 
     def connection
-      @connection ||= Faraday.new(:url => HOST) do |faraday|
+      @connection ||= Faraday.new(:url => HOST, request: {params_encoder: Faraday::BittrexFlatParamsEncoder}) do |faraday|
         faraday.request   :url_encoded
         faraday.response  :detailed_logger
         faraday.adapter   Faraday.default_adapter
