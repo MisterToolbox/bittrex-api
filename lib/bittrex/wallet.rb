@@ -7,14 +7,13 @@ module Bittrex
       @available = attrs['Available']
       @balance = attrs['Balance']
       @currency = attrs['Currency']
-      @id = attrs['Uuid'].to_s
       @pending = attrs['Pending']
       @raw = attrs
       @requested = attrs['Requested']
     end
 
     def self.all
-      client.get('account/getbalances').values.map{|data| new(data) }
+      client.get('account/getbalances').map{|data| new(data) }
     end
 
     def self.one(currency)
