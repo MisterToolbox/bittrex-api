@@ -24,3 +24,4 @@ tmp
 mkmf.log
 script
 noodle.rb
+sigtest.rb

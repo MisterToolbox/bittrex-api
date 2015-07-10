@@ -1,6 +1,8 @@
 require 'faraday'
 require 'base64'
 require 'json'
+require 'faraday/detailed_logger'
+require_relative 'lib/faraday_params_encoder'
 
 module Bittrex
   class Client
@@ -16,17 +18,17 @@ module Bittrex
     def get(path, params = {}, headers = {})
       nonce = Time.now.to_i
       response = connection.get do |req|
-        url = "#{HOST}/#{path}"
-        req.params.merge!(params)
-        req.url(url)
 
         if key
           req.params[:apikey]   = key
           req.params[:nonce]    = nonce
-          req.headers[:apisign] = signature(url, nonce)
         end
 
-        puts req
+        req.params.merge!(params)
+        req.url("#{HOST}/#{path}#{params_to_url(req.params)}")
+
+        req.headers[:apisign] = signature(url, nonce) if key
+
       end
 
       if JSON.parse(response.body)['result'].class.is_a? Array
@@ -40,14 +42,19 @@ module Bittrex
 
     private
 
+    def params_to_url(item, keyval_delimeter = '=', pair_delimeter = '&')
+      '?' + (item.map {|e| e.join(keyval_delimeter) }.join(pair_delimeter))
+    end
+
     def signature(url, nonce)
-      OpenSSL::HMAC.hexdigest('sha512', secret, "#{url}?apikey=#{key}&nonce=#{nonce}")
+      OpenSSL::HMAC.hexdigest('sha512', secret, url)
     end
 
     def connection
       @connection ||= Faraday.new(:url => HOST) do |faraday|
-        faraday.request  :url_encoded
-        faraday.adapter  Faraday.default_adapter
+        faraday.request   :url_encoded
+        faraday.response  :detailed_logger
+        faraday.adapter   Faraday.default_adapter
       end
     end
   end
